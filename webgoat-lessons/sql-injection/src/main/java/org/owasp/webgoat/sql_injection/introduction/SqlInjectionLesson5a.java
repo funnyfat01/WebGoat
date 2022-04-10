@@ -56,7 +56,9 @@ public class SqlInjectionLesson5a extends AssignmentEndpoint {
 
     protected AttackResult injectableQuery(String accountName) {
         String query = "SELECT * FROM user_data WHERE first_name = 'John' and last_name = ?";
-        try (Connection connection = dataSource.getConnection();PreparedStatement statement= connection.prepareStatement(query)) {
+        try (Connection connection = dataSource.getConnection(){
+            
+            try (PreparedStatement statement= connection.prepareStatement(query)) {
                 statement.setString(1,accountName);
                 ResultSet results = statement.executeQuery(query);
 
